@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorPrimary">#ec0000</color>
+    <color name="colorPrimaryDark">#600000</color>
     <color name="colorAccent">#FF4081</color>
+
+
+    <color name="title">#313131</color>
+    <color name="subtitle">#757575</color>
+    <color name="tab_unselected">#b3b3b3</color>
+    <color name="progressbar_bg">#7cf5f5f5</color>
+    <color name="dowmload_subtitle">#89f5f5f5</color>
+    <color name="mine_header_bg">#272727</color>
+    <color name="mine_header_divider">#3a3c36</color>
+    <color name="mine_header_tip_text">#898c8a</color>
+    <color name="mine_text">#383838</color>
+
 </resources>

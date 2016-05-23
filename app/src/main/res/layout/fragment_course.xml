@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary">
+        <ImageView
+            android:id="@+id/iv_classify"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:src="@drawable/classify_selected"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="16dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="分类"
+            android:textSize="18sp"
+            android:textColor="@android:color/white"
+            android:layout_toRightOf="@+id/iv_classify"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="16dp"/>
+
+
+        <ImageView
+            android:id="@+id/iv_study_latest"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:src="@drawable/study_latest_selected"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"/>
+
+        <ImageView
+            android:id="@+id/iv_search"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:src="@drawable/search_selected"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/iv_study_latest"
+            android:layout_marginRight="10dp"/>
+
+        <ImageView
+            android:id="@+id/iv_scan"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:src="@drawable/scan_selected"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/iv_search"
+            android:layout_marginRight="10dp"/>
+
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@null"
+        android:scrollbars="none"/>
+
+
+</LinearLayout>
