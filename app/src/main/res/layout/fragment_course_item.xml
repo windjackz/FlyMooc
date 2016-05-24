@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp">
+
+    <ImageView
+        android:id="@+id/img"
+        android:layout_width="125dp"
+        android:layout_height="70dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/course_default_bg"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"/>
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:lines="2"
+        android:text="PHP微信公众平台开发高级篇-群发接口"
+        android:textColor="@color/course_text"
+        android:textSize="16sp"
+        android:layout_toRightOf="@+id/img"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="10dp"/>
+
+    <ImageView
+        android:id="@+id/iv_number"
+        android:layout_width="12dp"
+        android:layout_height="12dp"
+        android:src="@drawable/allcourse_learnedcount_icon"
+        android:layout_toRightOf="@+id/img"
+        android:layout_below="@+id/tv_title"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="15dp"/>
+
+    <TextView
+        android:id="@+id/tv_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="397"
+        android:textSize="12sp"
+        android:textColor="@color/course_second_text"
+        android:layout_toRightOf="@+id/iv_number"
+        android:layout_below="@+id/tv_title"
+        android:layout_marginTop="13dp"
+        android:layout_marginLeft="5dp"
+        android:singleLine="true"/>
+
+    <TextView
+        android:id="@+id/tv_finished"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:singleLine="true"
+        android:text="更新完成"
+        android:textSize="12sp"
+        android:textColor="@color/course_second_text"
+        android:layout_below="@+id/tv_title"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="13dp"
+        android:layout_marginRight="50dp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/divider"
+        android:layout_alignParentBottom="true" />
+
+</RelativeLayout>
