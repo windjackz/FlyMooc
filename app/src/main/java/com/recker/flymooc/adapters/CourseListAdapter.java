@@ -69,7 +69,7 @@ public class CourseListAdapter extends BaseAdapter {
             hodler = (ViewHodler) view.getTag();
         }
 
-        Picasso.with(mContext).load(data.getPic()).into(hodler.img);
+        Picasso.with(mContext).load(data.getPic()).placeholder(R.drawable.course_default_bg).into(hodler.img);
         hodler.title.setText(data.getName()+"");
         hodler.numbers.setText(data.getNumbers()+"");
 

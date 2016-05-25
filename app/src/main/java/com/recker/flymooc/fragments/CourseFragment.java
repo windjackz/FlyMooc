@@ -5,18 +5,21 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
-import android.widget.ListView;
+import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.recker.flymooc.R;
 import com.recker.flymooc.activities.ClassifyActivity;
+import com.recker.flymooc.activities.JobLineActivity;
 import com.recker.flymooc.adapters.CourseListAdapter;
 import com.recker.flymooc.customviews.FlyBanner;
+import com.recker.flymooc.customviews.RefreshListView;
 import com.recker.flymooc.datas.BannerData;
 import com.recker.flymooc.datas.CourseListData;
 import com.recker.flymooc.utils.HttpRequest;
@@ -28,7 +31,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -38,7 +40,8 @@ import butterknife.ButterKnife;
 /**
  * Created by recker on 16/5/23.
  */
-public class CourseFragment extends Fragment implements View.OnClickListener {
+public class CourseFragment extends Fragment implements View.OnClickListener
+        , RefreshListView.OnRefreshListener, AdapterView.OnItemClickListener {
 
     @Bind(R.id.iv_classify)
     ImageView mIvClassify;
@@ -53,7 +56,7 @@ public class CourseFragment extends Fragment implements View.OnClickListener {
     ImageView mIvStudyLatest;
 
     @Bind(R.id.listview)
-    ListView mListView;
+    RefreshListView mListView;
 
     private CourseListAdapter mAdapter;
 
@@ -65,8 +68,17 @@ public class CourseFragment extends Fragment implements View.OnClickListener {
 
     private FlyBanner mBanner;
 
+    private LinearLayout mTabOne;//求职路线计划
+
+    private LinearLayout mTabTwo;//加薪利器计划
 
     private Loading mLoading;
+
+    private int mCurrentPage = 1;//当前页面
+
+    private boolean mIsRefshing = false;//是否正在刷新
+
+    private boolean mIsLoadingMore = false;//是否正在加载更多
 
     @Nullable
     @Override
@@ -89,10 +101,14 @@ public class CourseFragment extends Fragment implements View.OnClickListener {
                 .inflate(R.layout.fragment_course_header, null);
         mListView.addHeaderView(mHeaderView);
         mBanner = ButterKnife.findById(mHeaderView, R.id.banner);
+        mTabOne = ButterKnife.findById(mHeaderView, R.id.tab_one);
+        mTabTwo = ButterKnife.findById(mHeaderView, R.id.tab_two);
 
         mCourseDatas = new ArrayList<>();
         mAdapter = new CourseListAdapter(getActivity(), mCourseDatas);
         mListView.setAdapter(mAdapter);
+        mListView.setOnRefreshListener(this);
+        mListView.setOnItemClickListener(this);
         mLoading = Loading.getInstance(getActivity());
         showLoading();
     }
@@ -102,6 +118,11 @@ public class CourseFragment extends Fragment implements View.OnClickListener {
      */
     private void setupClick() {
         mIvClassify.setOnClickListener(this);
+        mTabOne.setOnClickListener(this);
+        mTabTwo.setOnClickListener(this);
+        mIvScan.setOnClickListener(this);
+        mIvSearch.setOnClickListener(this);
+        mIvStudyLatest.setOnClickListener(this);
     }
 
 
@@ -112,6 +133,23 @@ public class CourseFragment extends Fragment implements View.OnClickListener {
                 Intent intent1 = new Intent(getActivity(), ClassifyActivity.class);
                 startActivity(intent1);
                 getActivity().overridePendingTransition(R.anim.slide_in_left, R.anim.slide_none);
+                break;
+            case R.id.tab_one:
+                Intent intent2 = new Intent(getActivity(), JobLineActivity.class);
+                startActivity(intent2);
+                getActivity().overridePendingTransition(R.anim.slide_in_left, R.anim.slide_none);
+                break;
+            case R.id.tab_two:
+
+                break;
+            case R.id.iv_scan:
+
+                break;
+            case R.id.iv_search:
+
+                break;
+            case R.id.iv_study_latest:
+
                 break;
         }
     }
@@ -199,21 +237,50 @@ public class CourseFragment extends Fragment implements View.OnClickListener {
                     data.setIsFollow(object.getInt("is_follow"));
                     data.setMaxChapterSeq(object.getInt("max_chapter_seq"));
                     data.setMaxMediaSeq(object.getInt("max_media_seq"));
-                    data.setLastTime(object.getLong("last_time"));
-                    data.setChapterSeq(object.getInt("chapter_seq"));
-                    data.setMediaSeq(object.getInt("media_seq"));
+//                    data.setLastTime(object.getLong("last_time"));
+//                    data.setChapterSeq(object.getInt("chapter_seq"));
+//                    data.setMediaSeq(object.getInt("media_seq"));
 
 //                    debug(data.toString());
                     mCourseDatas.add(data);
                 }
                 hideLoading();
+                mListView.refreshComplete();
                 mAdapter.notifyDataSetChanged();
+
+                if (mIsRefshing == true) {
+                    toast("刷新成功");
+                }
+                mIsRefshing = false;
+                mIsLoadingMore = false;
             }
 
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void onRefresh() {
+        mCurrentPage = 1;
+        mIsRefshing = true;
+        mCourseDatas.clear();
+        new CourseListAsyncTask().execute();
+    }
+
+    @Override
+    public void onLoadMore() {
+        if (!mIsLoadingMore) {
+            mCurrentPage++;
+            mIsLoadingMore = true;
+            new CourseListAsyncTask().execute();
+        }
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
     }
 
     private class BannerAsyncTask extends AsyncTask<Void, Void, String> {
@@ -240,7 +307,7 @@ public class CourseFragment extends Fragment implements View.OnClickListener {
         protected String doInBackground(String... strings) {
 
             String url = HttpUrl.getInstance().getCourseListUrl();
-            Map<String, String> params = HttpUrl.getInstance().getCourseListParams(1);
+            Map<String, String> params = HttpUrl.getInstance().getCourseListParams(mCurrentPage);
 
             return HttpRequest.getInstance().POST(url, params);
         }
@@ -276,6 +343,10 @@ public class CourseFragment extends Fragment implements View.OnClickListener {
     public void onPause() {
         super.onPause();
         mBanner.stopAutoPlay();
+    }
+
+    private void toast(String str) {
+        Toast.makeText(getActivity(), str, Toast.LENGTH_SHORT).show();
     }
 
     private void debug(String str) {

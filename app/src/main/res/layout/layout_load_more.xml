@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:paddingTop="12dp"
+    android:paddingBottom="12dp">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_centerHorizontal="true">
+        <ProgressBar
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:indeterminateBehavior="repeat"
+            android:indeterminateDrawable="@drawable/loading_anim"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="正在加载更多..."
+            android:textSize="12sp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="1dp"/>
+    </LinearLayout>
+
+</RelativeLayout>

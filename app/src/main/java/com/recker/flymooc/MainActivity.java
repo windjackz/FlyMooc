@@ -86,6 +86,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         mViewPager.setAdapter(adapter);
         mViewPager.addOnPageChangeListener(mOnPageChangeListener);
+        mViewPager.setOffscreenPageLimit(mFragments.size());
     }
 
 
