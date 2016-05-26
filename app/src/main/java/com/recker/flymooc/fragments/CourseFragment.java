@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.recker.flymooc.R;
 import com.recker.flymooc.activities.ClassifyActivity;
 import com.recker.flymooc.activities.JobLineActivity;
+import com.recker.flymooc.activities.RaiseActivity;
 import com.recker.flymooc.adapters.CourseListAdapter;
 import com.recker.flymooc.customviews.FlyBanner;
 import com.recker.flymooc.customviews.RefreshListView;
@@ -140,7 +141,9 @@ public class CourseFragment extends Fragment implements View.OnClickListener
                 getActivity().overridePendingTransition(R.anim.slide_in_left, R.anim.slide_none);
                 break;
             case R.id.tab_two:
-
+                Intent intent3 = new Intent(getActivity(), RaiseActivity.class);
+                startActivity(intent3);
+                getActivity().overridePendingTransition(R.anim.slide_in_left, R.anim.slide_none);
                 break;
             case R.id.iv_scan:
 

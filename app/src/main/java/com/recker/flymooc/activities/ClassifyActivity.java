@@ -12,8 +12,11 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 import com.recker.flymooc.R;
 import com.recker.flymooc.adapters.ClassifyAdapter;
@@ -51,11 +54,13 @@ public class ClassifyActivity extends AppCompatActivity implements
     @Bind(R.id.recycler)
     RecyclerView mRecyclerView;
 
+    @Bind(R.id.progress)
+    ProgressBar mProgressBar;
+
     private List<ClassifyData> listDatas;
 
     private ClassifyAdapter mAdapter;
 
-    private Loading mLoading;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -69,8 +74,6 @@ public class ClassifyActivity extends AppCompatActivity implements
     }
 
     private void init() {
-        mLoading = Loading.getInstance(this);
-        mLoading.show();
 
         listDatas = new ArrayList<>();
         mAdapter = new ClassifyAdapter(this, listDatas);
@@ -106,7 +109,6 @@ public class ClassifyActivity extends AppCompatActivity implements
     }
 
     private void analysisJsonData(String s) {
-//        debug(s);
         try {
             JSONObject object = new JSONObject(s);
             int errorCode = object.getInt("errorCode");
@@ -147,7 +149,7 @@ public class ClassifyActivity extends AppCompatActivity implements
                         listDatas.add(data2);
                     }
                 }
-                mLoading.hide();
+
                 mAdapter.notifyDataSetChanged();
             }
 
@@ -179,6 +181,7 @@ public class ClassifyActivity extends AppCompatActivity implements
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
 
+            mProgressBar.setVisibility(View.GONE);
             analysisJsonData(s);
         }
     }

@@ -23,13 +23,10 @@ public class ClassifyAdapter extends RecyclerView.Adapter<ClassifyAdapter.ViewHo
 
     private List<ClassifyData> listDatas;
 
-    private LayoutInflater inflater;
-
     private Context mContext;
 
     public ClassifyAdapter(Context context, List<ClassifyData> list) {
         listDatas = list;
-        inflater = LayoutInflater.from(context);
         mContext = context;
     }
 

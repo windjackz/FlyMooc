@@ -8,6 +8,8 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import com.recker.flymooc.R;
 import com.recker.flymooc.datas.JobLineData;
@@ -41,11 +43,13 @@ public class JobLineActivity extends AppCompatActivity {
     @Bind(R.id.viewpager)
     ViewPager mViewPager;
 
+    @Bind(R.id.progress)
+    ProgressBar mProgressBar;
+
     private List<JobLineData> listDatas;
 
     private List<JobLineFragment> mFragments;
 
-    private Loading mLoading;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -53,8 +57,6 @@ public class JobLineActivity extends AppCompatActivity {
         setContentView(R.layout.activity_jobline);
         ButterKnife.bind(this);
 
-        mLoading = Loading.getInstance(this);
-        mLoading.show();
         new JobLineAsyncTask().execute();
     }
 
@@ -83,7 +85,6 @@ public class JobLineActivity extends AppCompatActivity {
 
                     listDatas.add(data);
                 }
-                mLoading.hide();
                 setupViewPager();
             }
 
@@ -105,6 +106,8 @@ public class JobLineActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
+
+            mProgressBar.setVisibility(View.GONE);
             analysisJsonData(s);
         }
     }

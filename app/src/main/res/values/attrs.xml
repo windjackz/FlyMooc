@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="FlyTabLayout">
+        <attr name="tab_indicator_height" format="dimension"/>
+        <attr name="tab_indicator_color" format="color"/>
+        <attr name="tab_text_size" format="integer"/>
+        <attr name="tab_text_unselected_color" format="color"/>
+        <attr name="tab_text_selected_color" format="color"/>
+        <attr name="tab_visible_count" format="integer"/>
+        <attr name="tab_mode" format="enum">
+            <enum name="FIXED" value="100"/>
+            <enum name="SCROLLABLE" value="200"/>
+        </attr>
+    </declare-styleable>
+</resources>

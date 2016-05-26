@@ -21,6 +21,12 @@ public class HttpUrl {
     private String mJobLineUrl = mHostName +"/api3/program";
     //加薪利器URL
     private String mRaiseweaponUrl = mHostName + "/api3/program";
+    //分类课程列表
+    private String mClassifyListUrl = mHostName+"/api3/courselist_ver2";
+    //社区文章
+    private String mArticleListUrl = mHostName + "/api3/articlelist";
+    //文章内容
+    private String mArticleContent = mHostName + "/api3/articlecontent";
 
     private HttpUrl() {
 
@@ -57,6 +63,18 @@ public class HttpUrl {
         return mRaiseweaponUrl;
     }
 
+    public String getClassifListUrl() {
+        return mClassifyListUrl;
+    }
+
+    public String getArticleListUrl() {
+        return mArticleListUrl;
+    }
+
+    public String getArticleContent() {
+        return mArticleContent;
+    }
+
     /**
      * 获取广告轮参数
      * @return
@@ -78,7 +96,7 @@ public class HttpUrl {
      */
     public Map<String, String> getCourseListParams(int page) {
         Map<String, String> params = new HashMap<>();
-        params.put("timestamp", "1464082423816");
+        params.put("timestamp", System.currentTimeMillis()+"");
         params.put("page", page+"");
         params.put("uid", "2902109");
         params.put("token", "933b40289b2a668bb882e2261a759267");
@@ -130,4 +148,55 @@ public class HttpUrl {
         return params;
     }
 
+
+    /**
+     * 获取分类课程列表参数
+     * @param id
+     * @param type 1为全部, 2为初级, 3为中级，4为高级
+     * @param page
+     * @return
+     */
+    public Map<String, String> getClassifyListParams(String id, int type, int page) {
+        Map<String, String> params = new HashMap<>();
+
+        params.put("cat_type", id);
+        params.put("timestamp", System.currentTimeMillis()+"");
+        params.put("uid", "2902109");
+        params.put("page", page + "");
+        params.put("all_type", "0");
+        params.put("easy_type", type+"");
+        params.put("token", "933b40289b2a668bb882e2261a759267");
+
+        return params;
+    }
+
+    /**
+     * 获取文章列表参数
+     * @param id 0为全部, 105为前端开发，106为后端开发，107为职场/生活，109为设计
+     *           110为移动开发，114为其它类干货
+     * @param page
+     * @return
+     */
+    public Map<String, String> getArticleListParams(String id, int page) {
+        Map<String, String> params = new HashMap<>();
+
+        params.put("typeid", id);
+        params.put("uid", "2902109");
+        params.put("page", page + "");
+        params.put("type", "0");
+        params.put("aid", "0");
+        params.put("token", "c0581c2f1a83e264a9bf1d74a0773ebd");
+
+        return params;
+    }
+
+    public Map<String, String> getArticleContentParams(String id) {
+        Map<String, String> params = new HashMap<>();
+
+        params.put("typeid", id);
+        params.put("uid", "2902109");
+        params.put("token", "2076cc47b14f0f8509e2cfd4358bb71e");
+
+        return params;
+    }
 }
