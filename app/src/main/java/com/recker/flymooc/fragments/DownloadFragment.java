@@ -14,6 +14,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.recker.flymooc.R;
+import com.recker.flymooc.base.BaseFragment;
 
 import java.io.File;
 
@@ -23,7 +24,7 @@ import butterknife.ButterKnife;
 /**
  * Created by recker on 16/5/23.
  */
-public class DownloadFragment extends Fragment {
+public class DownloadFragment extends BaseFragment {
 
 
     @Bind(R.id.tv_cons)
@@ -35,17 +36,14 @@ public class DownloadFragment extends Fragment {
     @Bind(R.id.progressbar)
     ProgressBar mProgressBar;
 
-
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    protected int getLayoutId() {
+        return R.layout.fragment_download;
+    }
 
-        View view = inflater.inflate(R.layout.fragment_download, container, false);
-        ButterKnife.bind(this, view);
-
+    @Override
+    protected void init() {
         getDiveceSize();
-
-        return view;
     }
 
     /**
@@ -86,5 +84,6 @@ public class DownloadFragment extends Fragment {
     private String formatSize(long size) {
         return Formatter.formatFileSize(getActivity(), size);
     }
+
 
 }

@@ -19,6 +19,7 @@ import com.recker.flymooc.activities.ClassifyActivity;
 import com.recker.flymooc.activities.JobLineActivity;
 import com.recker.flymooc.activities.RaiseActivity;
 import com.recker.flymooc.adapters.CourseListAdapter;
+import com.recker.flymooc.base.BaseFragment;
 import com.recker.flymooc.customviews.FlyBanner;
 import com.recker.flymooc.customviews.RefreshListView;
 import com.recker.flymooc.datas.BannerData;
@@ -41,7 +42,7 @@ import butterknife.ButterKnife;
 /**
  * Created by recker on 16/5/23.
  */
-public class CourseFragment extends Fragment implements View.OnClickListener
+public class CourseFragment extends BaseFragment implements View.OnClickListener
         , RefreshListView.OnRefreshListener, AdapterView.OnItemClickListener {
 
     @Bind(R.id.iv_classify)
@@ -81,23 +82,21 @@ public class CourseFragment extends Fragment implements View.OnClickListener
 
     private boolean mIsLoadingMore = false;//是否正在加载更多
 
-    @Nullable
+
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    protected int getLayoutId() {
+        return R.layout.fragment_course;
+    }
 
-        View view = inflater.inflate(R.layout.fragment_course, container, false);
-        ButterKnife.bind(this, view);
-
-        init();
+    @Override
+    protected void init() {
+        initView();
         setupClick();
         new BannerAsyncTask().execute();
         new CourseListAsyncTask().execute();
-
-        return view;
     }
 
-
-    private void init() {
+    private void initView() {
         mHeaderView = LayoutInflater.from(getActivity())
                 .inflate(R.layout.fragment_course_header, null);
         mListView.addHeaderView(mHeaderView);

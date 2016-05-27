@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.ProgressBar;
 
 import com.recker.flymooc.R;
+import com.recker.flymooc.base.BaseActivity;
 import com.recker.flymooc.datas.JobLineData;
 import com.recker.flymooc.fragments.JobLineFragment;
 import com.recker.flymooc.utils.HttpRequest;
@@ -37,8 +38,7 @@ import butterknife.OnClick;
  * 求职路线计划
  *
  */
-public class JobLineActivity extends AppCompatActivity {
-
+public class JobLineActivity extends BaseActivity {
 
     @Bind(R.id.viewpager)
     ViewPager mViewPager;
@@ -52,14 +52,14 @@ public class JobLineActivity extends AppCompatActivity {
 
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_jobline);
-        ButterKnife.bind(this);
-
-        new JobLineAsyncTask().execute();
+    protected int getLayoutId() {
+        return R.layout.activity_jobline;
     }
 
+    @Override
+    protected void init() {
+        new JobLineAsyncTask().execute();
+    }
 
     private void analysisJsonData(String s) {
         try {
@@ -154,12 +154,6 @@ public class JobLineActivity extends AppCompatActivity {
 
     @OnClick(R.id.iv_back) void back() {
         finish();
-    }
-
-    @Override
-    public void finish() {
-        super.finish();
-        overridePendingTransition(R.anim.slide_none, R.anim.slide_out_left);
     }
 
     private void debug(String string) {

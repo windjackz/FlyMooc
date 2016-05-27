@@ -1,5 +1,6 @@
 package com.recker.flymooc.activities;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -20,6 +21,7 @@ import android.widget.ProgressBar;
 
 import com.recker.flymooc.R;
 import com.recker.flymooc.adapters.ClassifyAdapter;
+import com.recker.flymooc.base.BaseActivity;
 import com.recker.flymooc.datas.ClassifyData;
 import com.recker.flymooc.utils.HttpRequest;
 import com.recker.flymooc.utils.HttpUrl;
@@ -42,7 +44,7 @@ import butterknife.ButterKnife;
  * 课程分类
  *
  */
-public class ClassifyActivity extends AppCompatActivity implements
+public class ClassifyActivity extends BaseActivity implements
         View.OnClickListener, ClassifyAdapter.OnItemClickListener{
 
     @Bind(R.id.iv_back)
@@ -63,18 +65,19 @@ public class ClassifyActivity extends AppCompatActivity implements
 
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_classify);
-        ButterKnife.bind(this);
+    protected int getLayoutId() {
+        return R.layout.activity_classify;
+    }
 
-        init();
+    @Override
+    protected void init() {
+        initView();
         new ClassifyAsyncTask().execute();
         setupClick();
     }
 
-    private void init() {
 
+    private void initView() {
         listDatas = new ArrayList<>();
         mAdapter = new ClassifyAdapter(this, listDatas);
         mAdapter.setOnItemClickListener(this);
@@ -162,7 +165,10 @@ public class ClassifyActivity extends AppCompatActivity implements
     public void onItemClick(View view, int position) {
         ClassifyData data = listDatas.get(position);
         if (!data.isTitle()) {
-            debug("name-->"+data.getName());
+            Intent intent = new Intent(this, ClassifyListActivity.class);
+            intent.putExtra("title", data.getName()+"");
+            intent.putExtra("url", data.getPic());
+            startActivity(intent);
         }
     }
 
@@ -186,12 +192,6 @@ public class ClassifyActivity extends AppCompatActivity implements
         }
     }
 
-
-    @Override
-    public void finish() {
-        super.finish();
-        overridePendingTransition(R.anim.slide_none, R.anim.slide_out_left);
-    }
 
     private void debug(String str) {
         Log.d(ClassifyActivity.class.getSimpleName(), str);

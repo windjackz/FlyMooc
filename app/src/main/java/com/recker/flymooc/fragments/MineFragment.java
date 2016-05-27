@@ -8,24 +8,24 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.recker.flymooc.R;
+import com.recker.flymooc.base.BaseFragment;
 
 import butterknife.ButterKnife;
 
 /**
  * Created by recker on 16/5/23.
  */
-public class MineFragment extends Fragment {
+public class MineFragment extends BaseFragment {
 
 
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    protected int getLayoutId() {
+        return R.layout.fragment_mine;
+    }
 
-        View view = inflater.inflate(R.layout.fragment_mine, container, false);
-        ButterKnife.bind(this, view);
+    @Override
+    protected void init() {
 
-
-        return view;
     }
 
 }

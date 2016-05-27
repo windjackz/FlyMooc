@@ -27,6 +27,7 @@
 
     <color name="classify_text">#282828</color>
     <color name="classify_seconde_text">#b3b3b3</color>
+    <color name="classify_tab_text">#ff918a</color>
 
     <color name="raise_tab_unselected">#6f6863</color>
     <color name="raise_text">#313131</color>

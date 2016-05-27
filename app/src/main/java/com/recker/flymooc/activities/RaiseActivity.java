@@ -9,6 +9,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 
 import com.recker.flymooc.R;
+import com.recker.flymooc.base.BaseActivity;
 import com.recker.flymooc.customviews.FlyTabLayout;
 import com.recker.flymooc.fragments.RaiseFragment;
 
@@ -22,7 +23,7 @@ import butterknife.OnClick;
 /**
  * Created by recker on 16/5/26.
  */
-public class RaiseActivity extends AppCompatActivity {
+public class RaiseActivity extends BaseActivity {
 
 
     @Bind(R.id.tablayout)
@@ -37,15 +38,16 @@ public class RaiseActivity extends AppCompatActivity {
 
     private String[] mMarks = {null, "fe", "be", "mobile", "fsd"};
 
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_raise);
-        ButterKnife.bind(this);
 
-        setupViewPager();
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_raise;
     }
 
+    @Override
+    protected void init() {
+        setupViewPager();
+    }
 
     private void setupViewPager() {
         addFragments();

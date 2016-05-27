@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.recker.flymooc.R;
 import com.recker.flymooc.activities.ClassifyActivity;
 import com.recker.flymooc.activities.JobLineDetailActivity;
+import com.recker.flymooc.base.BaseFragment;
 import com.recker.flymooc.datas.JobLineData;
 import com.squareup.picasso.Picasso;
 
@@ -23,7 +24,7 @@ import butterknife.OnClick;
 /**
  * Created by recker on 16/5/25.
  */
-public class JobLineFragment extends Fragment {
+public class JobLineFragment extends BaseFragment {
 
     @Bind(R.id.img)
     ImageView mImage;
@@ -51,21 +52,17 @@ public class JobLineFragment extends Fragment {
         }
     }
 
-
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    protected int getLayoutId() {
+        return R.layout.fragment_jobline;
+    }
 
-        View view = inflater.inflate(R.layout.fragment_jobline, container, false);
-        ButterKnife.bind(this, view);
-
-
-
+    @Override
+    protected void init() {
         Picasso.with(getActivity()).load(mData.getPathPicFmt()).into(mImage);
         mTvTitle.setText(mData.getName()+"");
         mTvCourse.setText(mData.getCourses()+"门课程");
         mTvNumber.setText(mData.getStudyPersons()+"人在学");
-
-        return view;
     }
+
 }

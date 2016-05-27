@@ -67,7 +67,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         setupContent();//设置显示内容
         setupTabClick();
-//        Log.d(MainActivity.class.getSimpleName(), System.currentTimeMillis()+"");
     }
 
 

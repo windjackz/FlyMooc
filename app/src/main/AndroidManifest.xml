@@ -20,6 +20,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.ClassifyActivity"/>
+        <activity android:name=".activities.ClassifyListActivity"/>
         <activity android:name=".activities.JobLineActivity"/>
         <activity android:name=".activities.JobLineDetailActivity"/>
         <activity android:name=".activities.RaiseActivity"/>

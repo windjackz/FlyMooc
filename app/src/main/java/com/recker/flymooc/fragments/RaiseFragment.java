@@ -14,6 +14,7 @@ import android.widget.ProgressBar;
 
 import com.recker.flymooc.R;
 import com.recker.flymooc.adapters.RaiseAdapter;
+import com.recker.flymooc.base.BaseFragment;
 import com.recker.flymooc.datas.RaiseData;
 import com.recker.flymooc.utils.HttpRequest;
 import com.recker.flymooc.utils.HttpUrl;
@@ -32,7 +33,7 @@ import butterknife.ButterKnife;
 /**
  * Created by recker on 16/5/26.
  */
-public class RaiseFragment extends Fragment implements RaiseAdapter.OnItemClickListener {
+public class RaiseFragment extends BaseFragment implements RaiseAdapter.OnItemClickListener {
 
 
     @Bind(R.id.progress)
@@ -54,21 +55,20 @@ public class RaiseFragment extends Fragment implements RaiseAdapter.OnItemClickL
         mMark = mark;
     }
 
-    @Nullable
+
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
-        View view = inflater.inflate(R.layout.fragment_raise, container, false);
-        ButterKnife.bind(this, view);
-
-
-        init();
-        new RaiseAsyncTask().execute();
-
-        return view;
+    protected int getLayoutId() {
+        return R.layout.fragment_raise;
     }
 
-    private void init() {
+    @Override
+    protected void init() {
+        initView();
+        new RaiseAsyncTask().execute();
+    }
+
+
+    private void initView() {
         listDatas = new ArrayList<>();
         mAdapter = new RaiseAdapter(getActivity(), listDatas);
         mAdapter.setOnItemClickListener(this);
