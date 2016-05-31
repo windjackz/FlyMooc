@@ -168,6 +168,7 @@ public class ClassifyActivity extends BaseActivity implements
             Intent intent = new Intent(this, ClassifyListActivity.class);
             intent.putExtra("title", data.getName()+"");
             intent.putExtra("url", data.getPic());
+            intent.putExtra("id", data.getId());
             startActivity(intent);
         }
     }

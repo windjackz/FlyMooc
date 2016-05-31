@@ -27,6 +27,16 @@ public class HttpUrl {
     private String mArticleListUrl = mHostName + "/api3/articlelist";
     //文章内容
     private String mArticleContent = mHostName + "/api3/articlecontent";
+    //获取视频信息
+    private String mMediaInfo = mHostName + "/api3/getmediainfo_ver2";
+    //获取视频章节信息
+    private String mCpInfo = mHostName + "/api3/getcpinfo_ver2";
+    //获取课程评论列表
+    private String mCourseCommentList = mHostName + "/api3/coursecommentlist";
+    //获取课程简介信息
+    private String mCourseIntro = mHostName + "/api3/getcourseintro";
+    //获取推荐课程列表
+    private String mRelevantCourse = mHostName + "/api3/getrelevantcourse";
 
     private HttpUrl() {
 
@@ -73,6 +83,26 @@ public class HttpUrl {
 
     public String getArticleContent() {
         return mArticleContent;
+    }
+
+    public String getMediaInfo() {
+        return mMediaInfo;
+    }
+
+    public String getCpInfo() {
+        return mCpInfo;
+    }
+
+    public String getCourseCommentLIst() {
+        return mCourseCommentList;
+    }
+
+    public String getCourseIntro() {
+        return mCourseIntro;
+    }
+
+    public String getRelevantCourse() {
+        return mRelevantCourse;
     }
 
     /**
@@ -151,15 +181,14 @@ public class HttpUrl {
 
     /**
      * 获取分类课程列表参数
-     * @param id
      * @param type 1为全部, 2为初级, 3为中级，4为高级
      * @param page
      * @return
      */
-    public Map<String, String> getClassifyListParams(String id, int type, int page) {
+    public Map<String, String> getClassifyListParams(int id, int type, int page) {
         Map<String, String> params = new HashMap<>();
 
-        params.put("cat_type", id);
+        params.put("cat_type", id+"");
         params.put("timestamp", System.currentTimeMillis()+"");
         params.put("uid", "2902109");
         params.put("page", page + "");
@@ -190,6 +219,11 @@ public class HttpUrl {
         return params;
     }
 
+    /**
+     * 获取文章内容参数
+     * @param id
+     * @return
+     */
     public Map<String, String> getArticleContentParams(String id) {
         Map<String, String> params = new HashMap<>();
 
@@ -199,4 +233,82 @@ public class HttpUrl {
 
         return params;
     }
+
+    /**
+     * 获取视频信息参数
+     * @param id
+     * @return
+     */
+    public Map<String, String> getMediaInfoParams(String id) {
+        Map<String, String> params = new HashMap<>();
+
+        params.put("cid", id);
+        params.put("uid", "2902109");
+        params.put("token", "ee292734814af1f4804f676c51e3337d");
+
+        return params;
+    }
+
+    /**
+     * 获取视频章节参数
+     * @param id
+     * @return
+     */
+    public Map<String, String> getCpInfoParams(String id) {
+        Map<String, String> params = new HashMap<>();
+
+        params.put("cid", id);
+        params.put("uid", "2902109");
+        params.put("token", "56f37d20c0e34b9980b3cf910e35f342");
+
+        return params;
+    }
+
+    /**
+     * 获取课程评论列表参数
+     * @param id
+     * @param page
+     * @return
+     */
+    public Map<String, String> getCourseCommentListParams(String id, int page) {
+        Map<String, String> params = new HashMap<>();
+
+        params.put("cid", id);
+        params.put("uid", "2902109");
+        params.put("page", page+"");
+        params.put("token", "ec146a4a50030d232784e0e048827e36");
+
+        return params;
+    }
+
+    /**
+     * 获取课程简介参数
+     * @param id
+     * @return
+     */
+    public Map<String, String> getCourseIntroParams(String id) {
+        Map<String, String> params = new HashMap<>();
+
+        params.put("cid", id);
+        params.put("uid", "2902109");
+        params.put("token", "54368c2b6bdb7bd22505ba6666ad5dad");
+
+        return params;
+    }
+
+    /**
+     * 获取推荐课程列表参数
+     * @param id
+     * @return
+     */
+    public Map<String, String> getRelevantCourseParams(String id) {
+        Map<String, String> params = new HashMap<>();
+
+        params.put("cid", id);
+        params.put("uid", "2902109");
+        params.put("token", "88433c772ee11aa5eb997249b650e7c8");
+
+        return params;
+    }
+
 }

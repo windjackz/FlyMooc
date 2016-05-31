@@ -24,6 +24,7 @@
         <activity android:name=".activities.JobLineActivity"/>
         <activity android:name=".activities.JobLineDetailActivity"/>
         <activity android:name=".activities.RaiseActivity"/>
+        <activity android:name=".activities.CoursePlayActivity"/>
     </application>
 
 </manifest>

@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.recker.flymooc.R;
 import com.recker.flymooc.activities.ClassifyActivity;
+import com.recker.flymooc.activities.CoursePlayActivity;
 import com.recker.flymooc.activities.JobLineActivity;
 import com.recker.flymooc.activities.RaiseActivity;
 import com.recker.flymooc.adapters.CourseListAdapter;
@@ -217,6 +218,7 @@ public class CourseFragment extends BaseFragment implements View.OnClickListener
         try {
             JSONObject object = new JSONObject(s);
             int errorCode = object.getInt("errorCode");
+            mListView.refreshComplete();
 
             if (errorCode == 1000) {
                 JSONArray array = object.getJSONArray("data");
@@ -247,7 +249,6 @@ public class CourseFragment extends BaseFragment implements View.OnClickListener
                     mCourseDatas.add(data);
                 }
                 hideLoading();
-                mListView.refreshComplete();
                 mAdapter.notifyDataSetChanged();
 
                 if (mIsRefshing == true) {
@@ -260,6 +261,7 @@ public class CourseFragment extends BaseFragment implements View.OnClickListener
 
         } catch (JSONException e) {
             e.printStackTrace();
+            mListView.refreshComplete();
         }
     }
 
@@ -282,7 +284,12 @@ public class CourseFragment extends BaseFragment implements View.OnClickListener
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
+        CourseListData data = mCourseDatas.get(i-2);
+        Intent intent = new Intent(getActivity(), CoursePlayActivity.class);
+        intent.putExtra("id", data.getId());
+        intent.putExtra("title", data.getName());
+        startActivity(intent);
+        getActivity().overridePendingTransition(R.anim.slide_in_left, R.anim.slide_none);
     }
 
     private class BannerAsyncTask extends AsyncTask<Void, Void, String> {

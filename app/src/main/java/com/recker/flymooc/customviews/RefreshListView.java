@@ -118,7 +118,9 @@ public class RefreshListView extends ListView implements AbsListView.OnScrollLis
     public void onScrollStateChanged(AbsListView absListView, int scrollState) {
         if (totalItemCount == lastVisibleItem
                 && scrollState == SCROLL_STATE_IDLE) {
-            onRefreshListener.onLoadMore();
+            if (onRefreshListener != null) {
+                onRefreshListener.onLoadMore();
+            }
         }
     }
 

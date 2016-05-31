@@ -11,3 +11,5 @@
 - [第三天](process/threeday.md)
 - [第四天](process/forthday.md)
 - [第五天](process/fifthday.md)
+- [第六天](process/sixthday.md)
+- [第七天](process/seventhday.md)
