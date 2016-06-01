@@ -34,10 +34,10 @@
 
 
         <ImageView
-            android:id="@+id/iv_study_latest"
+            android:id="@+id/iv_menu_more"
             android:layout_width="26dp"
             android:layout_height="26dp"
-            android:src="@drawable/study_latest_selected"
+            android:src="@drawable/ic_menu_more"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
             android:layout_marginRight="10dp"/>
@@ -48,7 +48,7 @@
             android:layout_height="26dp"
             android:src="@drawable/search_selected"
             android:layout_centerVertical="true"
-            android:layout_toLeftOf="@id/iv_study_latest"
+            android:layout_toLeftOf="@id/iv_menu_more"
             android:layout_marginRight="10dp"/>
 
         <ImageView
@@ -62,16 +62,89 @@
 
     </RelativeLayout>
 
-    <io.vov.vitamio.widget.VideoView
-        android:id="@+id/videoView"
+    <FrameLayout
+        android:id="@+id/main_view"
         android:layout_width="match_parent"
-        android:layout_height="200dp" />
+        android:layout_height="200dp">
+        <io.vov.vitamio.widget.VideoView
+            android:id="@+id/videoView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <ProgressBar
+            android:id="@+id/progress_start"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:indeterminateBehavior="repeat"
+            android:indeterminateDrawable="@drawable/play_bg_anim"
+            android:layout_gravity="center"/>
+
+
+        <RelativeLayout
+            android:id="@+id/video_bg"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@color/video_bg"
+            android:layout_gravity="bottom">
+
+            <ImageView
+                android:id="@+id/play_control"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/video_play"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="26dp"/>
+
+            <SeekBar
+                android:id="@+id/seekbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/play_control"
+                android:layout_toLeftOf="@+id/tv_time"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:progressDrawable="@drawable/seekbar_layer_list"
+                android:thumb="@drawable/thumb_default"
+                android:thumbOffset="5dp"
+                android:focusable="true"
+                android:maxHeight="3dp"
+                android:minHeight="3dp"
+                android:max="1000"
+                android:progress="0"/>
+
+            <TextView
+                android:id="@+id/tv_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:text="00:00/00:00"
+                android:textSize="10sp"
+                android:textColor="@android:color/white"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/iv_fullscreen"
+                android:layout_marginRight="16dp"/>
+
+            <ImageView
+                android:id="@+id/iv_fullscreen"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/play_fullscreen"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="16dp"/>
+
+        </RelativeLayout>
+
+    </FrameLayout>
 
     <android.support.design.widget.TabLayout
         android:id="@+id/tablayout"
         android:layout_width="match_parent"
         android:layout_height="44dp"
         android:layout_alignParentBottom="true"
+        android:elevation="1dp"
         app:tabSelectedTextColor="@color/colorPrimary"
         app:tabTextColor="@color/course_second_text"
         app:tabIndicatorColor="@color/colorPrimary"

@@ -34,4 +34,10 @@
     <color name="raise_second_text">#b8b8b8</color>
     <color name="raise_bg">#fafafa</color>
 
+    <color name="video_bg">#88000000</color>
+    <color name="secondaryProgress">#ff918a</color>
+
+    <color name="cp_text">#313131</color>
+    <color name="cp_second_text">#939292</color>
+
 </resources>

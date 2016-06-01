@@ -21,7 +21,7 @@ public class MediaData {
 
     private int lastTime;
 
-    private int lastDate;
+    private long lastDate;
 
     private int status;
 
@@ -105,11 +105,11 @@ public class MediaData {
         this.lastTime = lastTime;
     }
 
-    public int getLastDate() {
+    public long getLastDate() {
         return lastDate;
     }
 
-    public void setLastDate(int lastDate) {
+    public void setLastDate(long lastDate) {
         this.lastDate = lastDate;
     }
 
