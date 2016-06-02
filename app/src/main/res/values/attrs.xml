@@ -12,4 +12,14 @@
             <enum name="SCROLLABLE" value="200"/>
         </attr>
     </declare-styleable>
+
+    <declare-styleable name="ShapeImageView">
+        <attr name="shape_mode" format="enum">
+            <enum name="shape" value="1" />
+            <enum name="circle" value="2" />
+        </attr>
+        <attr name="round_radius" format="dimension" />
+        <attr name="frame_width" format="dimension" />
+        <attr name="frame_color" format="color|reference" />
+    </declare-styleable>
 </resources>

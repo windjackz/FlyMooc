@@ -40,4 +40,11 @@
     <color name="cp_text">#313131</color>
     <color name="cp_second_text">#939292</color>
 
+    <color name="comment_name">#898989</color>
+    <color name="comment_time">#b5b5b5</color>
+    <color name="comment_content">#313131</color>
+
+    <color name="intro_text">#313131</color>
+    <color name="intro_second_text">#6d6d6d</color>
+
 </resources>

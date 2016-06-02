@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@android:color/white"
+    android:paddingTop="12dp"
+    android:paddingRight="16dp"
+    android:paddingLeft="16dp">
+
+    <com.recker.flymooc.customviews.ShapeImageView
+        android:id="@+id/img"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:src="@drawable/course_default_bg"
+        app:shape_mode="circle"/>
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:singleLine="true"
+        android:text="Recker"
+        android:textSize="10sp"
+        android:textColor="@color/comment_name"
+        android:layout_toRightOf="@+id/img"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="2dp"/>
+
+    <TextView
+        android:id="@+id/tv_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:singleLine="true"
+        android:text="6小时前"
+        android:textSize="10sp"
+        android:textColor="@color/comment_time"
+        android:layout_toRightOf="@+id/img"
+        android:layout_below="@+id/tv_name"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="5dp"/>
+
+
+    <TextView
+        android:id="@+id/tv_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="求资源！！！"
+        android:textSize="14sp"
+        android:textColor="@color/comment_content"
+        android:layout_toRightOf="@+id/img"
+        android:layout_below="@+id/tv_time"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginLeft="8dp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/divider"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/img"
+        android:layout_marginLeft="8dp"/>
+
+</RelativeLayout>

@@ -18,12 +18,14 @@ import android.widget.TextView;
 import com.recker.flymooc.R;
 import com.recker.flymooc.base.BasePlayActivity;
 import com.recker.flymooc.datas.MediaData;
+import com.recker.flymooc.events.PlayNextVideo;
 import com.recker.flymooc.fragments.CourseCommentFragment;
 import com.recker.flymooc.fragments.CourseIntroFragment;
 import com.recker.flymooc.fragments.CpFragment;
 import com.recker.flymooc.utils.HttpRequest;
 import com.recker.flymooc.utils.HttpUrl;
 
+import org.greenrobot.eventbus.EventBus;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -40,7 +42,7 @@ import io.vov.vitamio.widget.VideoView;
 /**
  * Created by recker on 16/5/31.
  */
-public class CoursePlayActivity extends BasePlayActivity {
+public class CoursePlayActivity extends BasePlayActivity implements CpFragment.PlayVideoListener {
 
     private static final int VIDEO_PALY = 0;
 
@@ -64,7 +66,6 @@ public class CoursePlayActivity extends BasePlayActivity {
 
     @Bind(R.id.progress_start)
     ProgressBar mProgressBarStart;
-
 
     @Bind(R.id.video_bg)
     RelativeLayout mVideoBg;
@@ -249,8 +250,8 @@ public class CoursePlayActivity extends BasePlayActivity {
             public void onCompletion(MediaPlayer mp) {
                 //暂停播放
                 pauseVideo();
-
                 mIsPlayEnd = true;
+                EventBus.getDefault().post(new PlayNextVideo());
             }
         });
 
@@ -317,6 +318,7 @@ public class CoursePlayActivity extends BasePlayActivity {
             }
         };
         mViewPager.setAdapter(adapter);
+        mViewPager.setOffscreenPageLimit(mFragments.size());
         mTabLayout.setupWithViewPager(mViewPager);
     }
 
@@ -328,12 +330,25 @@ public class CoursePlayActivity extends BasePlayActivity {
         mIntroFragment = new CourseIntroFragment();
 
         mCpFragment.setId(mId);
+        mCommentFragmet.setId(mId);
+        mIntroFragment.setId(mId);
+
+        mCpFragment.setPlayVideoListener(this);
 
         mFragments.add(mCpFragment);
         mFragments.add(mCommentFragmet);
         mFragments.add(mIntroFragment);
     }
 
+    @Override
+    public void onPlayVideo(String url) {
+        mVideoView.setVideoPath(url);
+
+        pauseVideo();
+        startDuration = 0;
+        mTvTime.setText(sec2time(startDuration) + "/" + mTotalDurationStr);
+        mSeekBar.setProgress(0);
+    }
 
 
     private class MediaAsyncTask extends AsyncTask<Void, Void, String> {
@@ -422,7 +437,7 @@ public class CoursePlayActivity extends BasePlayActivity {
      * @return
      */
     private String sec2time(long time) {
-        //初始化Formatter的转换格式。
+        //转换格式
         SimpleDateFormat formatter = new SimpleDateFormat("mm:ss");
         String hms = formatter.format(time);
 

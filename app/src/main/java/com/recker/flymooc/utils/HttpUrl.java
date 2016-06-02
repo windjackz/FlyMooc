@@ -93,7 +93,7 @@ public class HttpUrl {
         return mCpInfo;
     }
 
-    public String getCourseCommentLIst() {
+    public String getCourseCommentList() {
         return mCourseCommentList;
     }
 

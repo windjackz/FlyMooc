@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="12dp"
+        android:paddingTop="12dp"
+        android:paddingLeft="16dp">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Unity3D菜鸟先飞之NGUI实战篇"
+            android:textColor="@color/intro_text"
+            android:textSize="14sp"
+            android:singleLine="true"/>
+
+        <ImageView
+            android:id="@+id/iv_finish"
+            android:layout_width="30dp"
+            android:layout_height="15dp"
+            android:src="@drawable/class_finished"
+            android:layout_toRightOf="@+id/tv_title"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="8dp"/>
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="本课程为NGUI课程续篇，结合上一课学习的基础知识，老师讲带领同学们完成登陆以及游戏主界面的功能实现。在Unity3D开发中，NGUI的地位举足轻重，不论版本怎样变化。掌握NGUI技术还是有必要的。"
+        android:textSize="12sp"
+        android:textColor="@color/intro_second_text"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="8dp"
+        android:background="@color/divider"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="12dp"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <com.recker.flymooc.customviews.ShapeImageView
+            android:id="@+id/img"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@drawable/course_default_bg"
+            app:shape_mode="circle"
+            android:layout_marginLeft="16dp"/>
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Recker"
+            android:textColor="@color/intro_text"
+            android:textSize="14sp"
+            android:layout_marginLeft="8dp"
+            android:layout_toRightOf="@+id/img"
+            android:layout_centerVertical="true"/>
+
+        <ImageView
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:src="@drawable/teacher_icon"
+            android:layout_toRightOf="@+id/tv_name"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="8dp"/>
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_intro"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="不要相信策划说的需求不会改了，做一个有脾气的程序员”，不安于规则，善于打破规则。做自己想做的事，我就是小学弟。"
+        android:textSize="12sp"
+        android:textColor="@color/intro_second_text"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="12dp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/divider"/>
+
+    <RelativeLayout
+        android:id="@+id/teacher_all_course"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/selector_click"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="老师的全部课程"
+            android:textColor="@color/intro_text"
+            android:textSize="14sp"/>
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="8dp"
+        android:background="@color/divider"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="相关推荐"
+        android:textSize="14sp"
+        android:textColor="@color/intro_text"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="12dp"/>
+
+</LinearLayout>

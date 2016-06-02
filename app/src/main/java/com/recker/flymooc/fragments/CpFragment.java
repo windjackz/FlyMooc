@@ -10,9 +10,12 @@ import com.recker.flymooc.R;
 import com.recker.flymooc.adapters.CpAdapter;
 import com.recker.flymooc.base.BaseFragment;
 import com.recker.flymooc.datas.CpData;
+import com.recker.flymooc.events.PlayNextVideo;
 import com.recker.flymooc.utils.HttpRequest;
 import com.recker.flymooc.utils.HttpUrl;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -38,6 +41,7 @@ public class CpFragment extends BaseFragment implements AdapterView.OnItemClickL
 
     private List<CpData> listDatas = new ArrayList<>();
 
+    private int mCurrentPosition = 1;//当前播放视频的位置
 
     private int mId;
 
@@ -52,6 +56,7 @@ public class CpFragment extends BaseFragment implements AdapterView.OnItemClickL
 
     @Override
     protected void init() {
+        EventBus.getDefault().register(this);
 
         //关闭view的OverScroll
         mListView.setOverScrollMode(ListView.OVER_SCROLL_NEVER);
@@ -60,6 +65,12 @@ public class CpFragment extends BaseFragment implements AdapterView.OnItemClickL
         mListView.setOnItemClickListener(this);
 
         new CpAsyncTask().execute();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 
     private void analysisJsonData(String s) {
@@ -81,7 +92,7 @@ public class CpFragment extends BaseFragment implements AdapterView.OnItemClickL
                     data.setCid(object1.getInt("cid"));
                     data.setSeq(object1.getInt("seq"));
                     data.setTitle(true);
-                    debug(data.toString());
+//                    debug(data.toString());
                     listDatas.add(data);
 
                     for (int j = 0; j < array1.length(); j++) {
@@ -114,7 +125,6 @@ public class CpFragment extends BaseFragment implements AdapterView.OnItemClickL
                 }//for end
                 mAdapter.notifyDataSetChanged();
             }
-
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -123,11 +133,36 @@ public class CpFragment extends BaseFragment implements AdapterView.OnItemClickL
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         CpData data = listDatas.get(i);
+        mCurrentPosition = i;
         if (!data.isTitle()) {
             clearListSelected();
             data.setSeleted(true);
             mAdapter.notifyDataSetChanged();
+            if (mListener != null) {
+                mListener.onPlayVideo(data.getMediaUrl());
+            }
         }
+    }
+
+    @Subscribe
+    public void onEvent(PlayNextVideo event) {
+//        debug("*************");
+        for (int i = mCurrentPosition; i < listDatas.size(); i++) {
+            CpData data = listDatas.get(i);
+            if (!data.isTitle()){//不是标题数据
+                if (i > mCurrentPosition) {//跳到下一个视频
+                    clearListSelected();
+                    data.setSeleted(true);
+                    mAdapter.notifyDataSetChanged();
+                    if (mListener != null) {
+                        mListener.onPlayVideo(data.getMediaUrl());
+                    }
+                    mCurrentPosition = i;
+                    break;
+                }
+            }
+        }
+
     }
 
     private void clearListSelected() {
@@ -151,6 +186,18 @@ public class CpFragment extends BaseFragment implements AdapterView.OnItemClickL
             analysisJsonData(s);
         }
     }
+
+    private PlayVideoListener mListener;
+
+    public void setPlayVideoListener(PlayVideoListener listener) {
+        mListener = listener;
+    }
+
+    public interface PlayVideoListener {
+        //点击播放视频
+        void onPlayVideo(String url);
+    }
+
 
     private void debug(String str) {
         Log.d(CpFragment.class.getSimpleName(), str);
