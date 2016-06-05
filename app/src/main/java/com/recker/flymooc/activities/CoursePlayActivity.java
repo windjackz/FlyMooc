@@ -1,5 +1,6 @@
 package com.recker.flymooc.activities;
 
+import android.content.pm.ActivityInfo;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Message;
@@ -7,8 +8,11 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -50,7 +54,11 @@ public class CoursePlayActivity extends BasePlayActivity implements CpFragment.P
 
     private static final int SEC = 1000;//一秒钟时间
 
-    private static final int HIDE_TIME = 3500;//隐藏控制栏时间
+    private static final int HIDE_TIME = 4500;//隐藏控制栏时间
+
+
+    @Bind(R.id.toolbar)
+    RelativeLayout mToolbar;
 
     @Bind(R.id.tv_title)
     TextView mTextView;
@@ -63,6 +71,9 @@ public class CoursePlayActivity extends BasePlayActivity implements CpFragment.P
 
     @Bind(R.id.viewpager)
     ViewPager mViewPager;
+
+    @Bind(R.id.main_view)
+    FrameLayout mMainView;
 
     @Bind(R.id.progress_start)
     ProgressBar mProgressBarStart;
@@ -108,6 +119,8 @@ public class CoursePlayActivity extends BasePlayActivity implements CpFragment.P
     private boolean mIsSlide = false;
     //是否播放结束
     private boolean mIsPlayEnd = false;
+    //是否全屏
+    private boolean mIsFullScreen = false;
 
     /**
      * 设置时间控制
@@ -385,6 +398,11 @@ public class CoursePlayActivity extends BasePlayActivity implements CpFragment.P
     //全屏键
     @OnClick(R.id.iv_fullscreen) void fullScreen() {
 
+        if (getRequestedOrientation() == ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE) {//如果为全屏
+            setupUnFullScreen();
+        } else {//不为全屏
+            setupFullScreen();
+        }
     }
 
     //显示视频控制器
@@ -405,6 +423,59 @@ public class CoursePlayActivity extends BasePlayActivity implements CpFragment.P
         finish();
     }
 
+
+    /**
+     * 设置为全屏
+     */
+    private void setupFullScreen() {
+        WindowManager.LayoutParams attrs = getWindow().getAttributes();
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        attrs.flags |= WindowManager.LayoutParams.FLAG_FULLSCREEN;
+        getWindow().setAttributes(attrs);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+
+        WindowManager manager = this.getWindowManager();
+        DisplayMetrics metrics = new DisplayMetrics();
+        manager.getDefaultDisplay().getMetrics(metrics);
+
+        mMainView.getLayoutParams().width = metrics.widthPixels;
+        mMainView.getLayoutParams().height = metrics.heightPixels;
+
+        //设置为全屏拉伸
+        mVideoView.setVideoLayout(VideoView.VIDEO_LAYOUT_STRETCH, 0);
+        mIvFullScreen.setImageResource(R.drawable.not_fullscreen);
+
+        mToolbar.setVisibility(View.GONE);
+        mTabLayout.setVisibility(View.GONE);
+        mViewPager.setVisibility(View.GONE);
+
+        mIsFullScreen = true;
+    }
+
+    /**
+     * 设置为非全屏
+     */
+    private void setupUnFullScreen() {
+        WindowManager.LayoutParams attrs = getWindow().getAttributes();
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        attrs.flags &= (~WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getWindow().setAttributes(attrs);
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+        float width = getResources().getDisplayMetrics().heightPixels;
+        float height = dp2px(200.f);
+        mMainView.getLayoutParams().width = (int) width;
+        mMainView.getLayoutParams().height = (int) height;
+
+        //设置为全屏
+        mVideoView.setVideoLayout(VideoView.VIDEO_LAYOUT_SCALE, 0);
+        mIvFullScreen.setImageResource(R.drawable.play_fullscreen);
+
+        mToolbar.setVisibility(View.VISIBLE);
+        mTabLayout.setVisibility(View.VISIBLE);
+        mViewPager.setVisibility(View.VISIBLE);
+
+        mIsFullScreen = false;
+    }
 
     /**
      * 开始视频播放
@@ -442,6 +513,27 @@ public class CoursePlayActivity extends BasePlayActivity implements CpFragment.P
         String hms = formatter.format(time);
 
         return hms;
+    }
+
+    private int dp2px(float dpValue) {
+        final float scale = getResources().getDisplayMetrics().density;
+        return (int) (dpValue * scale + 0.5f);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mVideoView.stopPlayback();
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        if (mIsFullScreen) {
+            setupUnFullScreen();
+        } else {
+            super.onBackPressed();
+        }
     }
 
     private void debug(String str) {

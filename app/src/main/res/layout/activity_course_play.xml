@@ -6,6 +6,7 @@
     android:layout_height="match_parent">
 
     <RelativeLayout
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/colorPrimary">
@@ -65,7 +66,8 @@
     <FrameLayout
         android:id="@+id/main_view"
         android:layout_width="match_parent"
-        android:layout_height="200dp">
+        android:layout_height="200dp"
+        android:background="@android:color/holo_red_dark">
         <io.vov.vitamio.widget.VideoView
             android:id="@+id/videoView"
             android:layout_width="match_parent"

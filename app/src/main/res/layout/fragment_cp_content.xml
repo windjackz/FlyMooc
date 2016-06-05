@@ -20,11 +20,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/iv_play"
+        android:layout_toLeftOf="@+id/tv_time"
+        android:singleLine="true"
         android:text="1-1 课程导学"
         android:textColor="@color/cp_second_text"
         android:textSize="14sp"
         android:layout_marginLeft="16dp"
-        android:layout_centerVertical="true"/>
+        android:layout_marginRight="8dp"
+        android:layout_centerVertical="true" />
 
     <TextView
         android:id="@+id/tv_time"
